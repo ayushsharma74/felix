@@ -1,65 +1,98 @@
+"use client";
+import { H1 } from "@/components/Typography";
 import Image from "next/image";
+import { motion, useScroll, useTransform } from "motion/react";
+import ScrollFixed from "@/components/ScrollFixed";
 
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main>
+      <section className=" flex flex-col gap-3 items-center text-center justify-start py-36 h-[200vh]">
+        <span className="tracking-tight text-sm font-medium border border-zinc-100 px-2 py-1 rounded-full">
+          Join +1000 scaling business
+        </span>
+
+        <H1 className="text-5xl font-medium tracking-tight">
+          The Smartest Way to Bring Best ROI for Sales
+        </H1>
+        <p className="text-light tracking-tight text-balance">
+          The smarter way to manage sales starts with using tools that
+          streamline every step of the process
+        </p>
+        <button className="bg-black text-white tracking-tight font-medium text-sm py-3 px-4 rounded-full">
+          Get 14 Date Free Trial
+        </button>
+        <p className="text-light text-sm">No Credit Card Required</p>
+        <motion.div style={{ scale }} className="py-32 max-w-3xl ">
+          <Image
+            alt="dashboard-image"
+            src={"/dashboard.png"}
+            width={700}
+            height={700}
+          />
+        </motion.div>
+      </section>
+      <section className="w-full">
+        <div className="flex flex-col gap-3 items-center justify-center">
+          <p className="text-center px-4 py-2 rounded-full shadow-2xl border border-zinc-200">
+            Power Pack
+          </p>
+          <H1 className="text-4xl font-medium tracking-tight text-center">
+            Why businesses choose Salix
+          </H1>
+          <p className="font-medium tracking-tight text-light text-center">
+            Businesses choose Salix because it simplifies the complexity of
+            sales management.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="grid grid-rows-3 md:grid-rows-1 md:grid-cols-3 gap-3">
+          <ShowcaseCard
+            title="Task & Activity Tracking"
+            description="Assign tasks, schedule meetings and track team activities"
+            imgSrc="/main/image.png"
+          />
+          <ShowcaseCard
+            title="Real-Time Visits"
+            description="Generate detailed reports on sales performance, team productivity"
+            imgSrc="/main/image1.png"
+          />
+          <ShowcaseCard
+            title="Reporting & Analytics"
+            description="Enable seamless communication and file sharing among sales reps"
+            imgSrc="/main/image2.png"
+          />
         </div>
-      </main>
+      </section>
+      <section>
+        <ScrollFixed />
+      </section>
+    </main>
+  );
+}
+
+function ShowcaseCard({
+  title,
+  description,
+  imgSrc,
+}: {
+  title: string;
+  description: string;
+  imgSrc: string;
+}) {
+  return (
+    <div className="flex flex-col gap-2 py-5">
+      <Image
+        className="border border-zinc-200 rounded-2xl size-full"
+        src={imgSrc}
+        width={300}
+        height={400}
+        alt={title}
+      />
+      <H1 className="font-medium text-2xl tracking-tight text-left">{title}</H1>
+      <p className="tracking-tight text-light text-left">{description}</p>
     </div>
   );
 }
